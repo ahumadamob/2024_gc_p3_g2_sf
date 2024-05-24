@@ -14,18 +14,10 @@ package imb.progra3.grupo2.entity;
 	    private String apellido;
 	    private String telefono;
 	    private String email;
+	    private String domicilio;
+	    private Integer codigoPostal;
 
-	    // Constructor vacío requerido por JPA
-	    public Cliente() {
-	    }
-
-	    // Constructor con parámetros
-	    public Cliente(String nombre, String apellido, String telefono, String email) {
-	        this.nombre = nombre;
-	        this.apellido = apellido;
-	        this.telefono = telefono;
-	        this.email = email;
-	    }
+	   
 
 	    // Getters y setters
 	    public Long getId_Cliente() {
@@ -68,17 +60,26 @@ package imb.progra3.grupo2.entity;
 	        this.email = email;
 	    }
 
-	    // Método toString para representación de cadena
-	    @Override
-	    public String toString() {
-	        return "Cliente{" +
-	                "id_Cliente=" + id_Cliente +
-	                ", nombre='" + nombre + '\'' +
-	                ", apellido='" + apellido + '\'' +
-	                ", telefono='" + telefono + '\'' +
-	                ", email='" + email + '\'' +
-	                '}';
-	    }
+		public String getDomicilio() {
+			return domicilio;
+		}
+
+		public void setDomicilio(String domicilio) {
+			this.domicilio = domicilio;
+		}
+
+		public Integer getCodigoPostal() {
+			return codigoPostal;
+		}
+
+		public void setCodigoPostal(Integer codigoPostal) {
+			this.codigoPostal = codigoPostal;
+		}
+	    
+	    
+	    
+
+	    
 	}
 
 
