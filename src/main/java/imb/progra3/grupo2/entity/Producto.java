@@ -8,30 +8,23 @@ import jakarta.persistence.Id;
 @Entity
 public class Producto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id_Producto;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	private Long id_producto;
+	
 	private String nombre;
 	private String precio;
-	private double descripcion;
+	private String descripcion;
+	private boolean disponible;
+	
+	//Getters y Setters
 	public Long getId() {
-		return id_Producto;
+		return id_producto;
 	}
-	
-    // Constructor vacío requerido por JPA
-    public Producto() {
-    }
-
-    // Constructor con parámetros
-    public Producto(String nombre) {
-        this.nombre = nombre;
-    }
-	
-    // Getters y setters
 	public Long getId_Producto() {
-		return id_Producto;
+		return id_producto;
 	}
 	public void setId_Producto(Long id_Producto) {
-		this.id_Producto = id_Producto;
+		this.id_producto= id_Producto;
 	}
 	public String getNombre() {
 		return nombre;
@@ -45,11 +38,19 @@ public class Producto {
 	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
-	public double getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
-	public void setDescripcion(double descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 	
 }
