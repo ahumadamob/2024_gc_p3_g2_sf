@@ -22,14 +22,14 @@ public class Pago {
 
     @ManyToOne
     @JoinColumn(name = "id_MedioDePago")
-    private MediodePago medioDePago;
+    private MedioDePago medioDePago;
 
     // Constructor vacío requerido por JPA
     public Pago() {
     }
 
     // Constructor con parámetros
-    public Pago(double monto, Date fecha, Ventas venta, MediodePago medioDePago) {
+    public Pago(double monto, Date fecha, Ventas venta, MedioDePago medioDePago) {
         this.monto = monto;
         this.fecha = fecha;
         this.venta = venta;
@@ -69,11 +69,11 @@ public class Pago {
         this.venta = venta;
     }
 
-    public MediodePago getMedioDePago() {
+    public MedioDePago getMedioDePago() {
         return medioDePago;
     }
 
-    public void setMedioDePago(MediodePago medioDePago) {
+    public void setMedioDePago(MedioDePago medioDePago) {
         this.medioDePago = medioDePago;
     }
 

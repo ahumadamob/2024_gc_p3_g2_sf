@@ -17,8 +17,8 @@ public class Ventas {
     private Date fecha;
 
     @ManyToOne
-    @JoinColumn(name = "id_MediodePago")
-    private MediodePago mediodePago;
+    @JoinColumn(name = "id_MedioDePago")
+    private MedioDePago medioDePago;
 
     @ManyToOne
     @JoinColumn(name = "id_Cliente")
@@ -29,10 +29,10 @@ public class Ventas {
     }
 
     // Constructor con parámetros
-    public Ventas(double total, Date fecha, MediodePago mediodePago, Cliente cliente) {
+    public Ventas(double total, Date fecha, MedioDePago medioDePago, Cliente cliente) {
         this.total = total;
         this.fecha = fecha;
-        this.mediodePago = mediodePago;
+        this.medioDePago = medioDePago;
         this.cliente = cliente;
     }
 
@@ -61,12 +61,12 @@ public class Ventas {
         this.fecha = fecha;
     }
 
-    public MediodePago getMedioDePago() {
-        return mediodePago;
+    public MedioDePago getMedioDePago() {
+        return medioDePago;
     }
 
-    public void setMediodePago(MediodePago medioDePago) {
-        this.mediodePago = medioDePago;
+    public void setMediodePago(MedioDePago medioDePago) {
+        this.medioDePago = medioDePago;
     }
 
     public Cliente getCliente() {
@@ -84,7 +84,7 @@ public class Ventas {
                 "id_Venta=" + id_Venta +
                 ", total=" + total +
                 ", fecha=" + fecha +
-                ", mediodePago=" + mediodePago +
+                ", medioDePago=" + medioDePago +
                 ", cliente=" + cliente +
                 '}';
     }

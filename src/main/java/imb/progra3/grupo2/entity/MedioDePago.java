@@ -6,28 +6,28 @@ package imb.progra3.grupo2.entity;
 	import jakarta.persistence.Id;
 
 	@Entity
-	public class MediodePago {
+	public class MedioDePago {
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id_MediodePago;
+	    private Long id_MedioDePago;
 	    private String nombre;
 
 	    // Constructor vacío requerido por JPA
-	    public MediodePago() {
+	    public MedioDePago() {
 	    }
 
 	    // Constructor con parámetros
-	    public MediodePago(String nombre) {
+	    public MedioDePago(String nombre) {
 	        this.nombre = nombre;
 	    }
 
 	    // Getters y setters
 	    public Long getId_MedioDePago() {
-	        return id_MediodePago;
+	        return id_MedioDePago;
 	    }
 
-	    public void setId_MedioDePago(Long id_MediodePago) {
-	        this.id_MediodePago = id_MediodePago;
+	    public void setId_MedioDePago(Long id_MedioDePago) {
+	        this.id_MedioDePago = id_MedioDePago;
 	    }
 
 	    public String getNombre() {
@@ -41,11 +41,17 @@ package imb.progra3.grupo2.entity;
 	    // Método toString para representación de cadena
 	    @Override
 	    public String toString() {
-	        return "MediodePago{" +
-	                "id_MediodePago=" + id_MediodePago +
+	        return "MedioDePago{" +
+	                "id_MedioDePago=" + id_MedioDePago +
 	                ", nombre='" + nombre + '\'' +
 	                '}';
 	    }
+
+		public void setId(Long id) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 
