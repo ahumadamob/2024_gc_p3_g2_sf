@@ -1,8 +1,10 @@
 package imb.progra3.grupo2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import imb.progra3.grupo2.entity.Cliente;
@@ -11,17 +13,26 @@ import imb.progra3.grupo2.service.IClienteService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/cliente")		//Obtener todos los clientes		// http://localhost:8080/api/v1/cliente
+@RequestMapping("/api/v1/cliente")				//Obtener todos los clientes		// http://localhost:8080/api/v1/cliente
+    public class ClienteController {
 
-public class ClienteController {
+        @Autowired
+        private IClienteService clienteService;
 
-    @Autowired
-    private IClienteService clienteService;
-
-    @GetMapping
-    public List<Cliente> getAllClientes() {
-        return clienteService.getAll();
-    }
+        @GetMapping
+        public ResponseEntity<List<Cliente>> getAllClientes() {
+            try {
+                List<Cliente> clientes = clienteService.getAll();
+                if (clientes.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
+                return new ResponseEntity<>(clientes, HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    
+ 
 
     @GetMapping("/{id_Cliente}")		//Obtener un cliente por ID			//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> getClienteById(@PathVariable("id_Cliente") Long id_Cliente) {
@@ -33,12 +44,20 @@ public class ClienteController {
         }
     }
 
-    @PostMapping						//Crear un nuevo cliente           //http://localhost:8080/api/v1/cliente
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-        Cliente createdCliente = clienteService.save(cliente);
-        return new ResponseEntity<>(createdCliente, HttpStatus.CREATED);
+  
+    @PostMapping       //Crear un nuevo cliente           //http://localhost:8080/api/v1/cliente
+    public ResponseEntity<Cliente> createCliente(@RequestBody @Validated Cliente cliente) {
+        try {
+            Cliente createdCliente = clienteService.save(cliente);
+            return new ResponseEntity<>(createdCliente, HttpStatus.CREATED);
+        } catch (DataIntegrityViolationException e) {
+            // Manejar violaciones de integridad de datos (ej. cliente ya existe)
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
+    
     @PutMapping("/{id_Cliente}")		//Actualizar un cliente existente	//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> updateCliente(@PathVariable("id_Cliente") Long id_Cliente, @RequestBody Cliente cliente) {
         if (clienteService.exists(id_Cliente)) {
