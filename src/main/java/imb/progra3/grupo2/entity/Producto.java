@@ -8,12 +8,13 @@ import jakarta.persistence.Id;
 @Entity
 public class Producto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+    @GeneratedValue(strategy=GenerationType.IDENTITY)  	
 	private Long id_producto;
 	private String nombre;
 	private String precio;
 	private String descripcion;
 	private boolean disponible;
+	private Integer stock;
 	
 	
 	//Getters y Setters
@@ -48,5 +49,12 @@ public class Producto {
 		this.disponible = disponible;
 	}
 	
+	 public Integer getStock() {
+	        return stock;
+	    }
+
+	    public void setStock(Integer stock) {
+	        this.stock = stock;
+	    }
 	
 }

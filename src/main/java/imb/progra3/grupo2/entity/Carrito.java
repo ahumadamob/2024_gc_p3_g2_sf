@@ -1,93 +1,47 @@
 package imb.progra3.grupo2.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Carrito {
-    @Id
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Carrito;
-    private double precio;
+    private Long idCarrito;
 
-    @ManyToOne
-    @JoinColumn(name = "id_Cliente")
-    private Cliente cliente;
+    private Long idCliente; // Identificador del cliente
 
-    @ManyToOne
-    @JoinColumn(name = "id_Producto")
-    private Producto producto;
+    @OneToMany(mappedBy = "carrito") // Nombre del atributo en ItemCarrito
+    private List<ItemCarrito> items;
 
-    @ManyToOne
-    @JoinColumn(name = "id_Venta")
-    private Ventas ventas;
-
-    // Constructor vacío requerido por JPA
-    public Carrito() {
+    // Getters y Setters
+    public Long getIdCarrito() {
+        return idCarrito;
     }
 
-    // Constructor con parámetros
-    public Carrito(double precio, Cliente cliente, Producto producto, Ventas ventas) {
-        this.precio = precio;
-        this.cliente = cliente;
-        this.producto = producto;
-        this.ventas = ventas;
+    public void setIdCarrito(Long idCarrito) {
+        this.idCarrito = idCarrito;
     }
 
-    // Getters y setters
-    public Long getId_Carrito() {
-        return id_Carrito;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
-    public void setId_Carrito(Long id_Carrito) {
-        this.id_Carrito = id_Carrito;
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public double getPrecio() {
-        return precio;
+    public List<ItemCarrito> getItems() {
+        return items;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public Ventas getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(Ventas ventas) {
-        this.ventas = ventas;
-    }
-
-    // Método toString para representación de cadena
-    @Override
-    public String toString() {
-        return "Carrito{" +
-                "id_Carrito=" + id_Carrito +
-                ", precio=" + precio +
-                ", cliente=" + cliente +
-                ", producto=" + producto +
-                ", ventas=" + ventas +
-                '}';
+    public void setItems(List<ItemCarrito> items) {
+        this.items = items;
     }
 }
