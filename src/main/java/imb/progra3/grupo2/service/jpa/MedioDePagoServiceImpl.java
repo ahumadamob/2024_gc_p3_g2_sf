@@ -8,6 +8,7 @@ import imb.progra3.grupo2.repository.MedioDePagoRepository;
 import imb.progra3.grupo2.service.IMedioDePagoService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedioDePagoServiceImpl implements IMedioDePagoService {
@@ -38,5 +39,10 @@ public class MedioDePagoServiceImpl implements IMedioDePagoService {
     @Override
     public boolean exists(Long id) {
         return medioDePagoRepository.existsById(id);
+    }
+    
+    @Override
+    public Optional<MedioDePago> MedioDePago(String nombre) {
+        return medioDePagoRepository.findByNombre(nombre);
     }
 }
