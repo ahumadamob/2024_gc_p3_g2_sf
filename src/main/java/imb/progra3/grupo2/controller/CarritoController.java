@@ -1,7 +1,8 @@
 package imb.progra3.grupo2.controller;
 
-
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,38 +13,78 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import imb.progra3.grupo2.entity.Carrito;
+import imb.progra3.grupo2.entity.Producto;
 import imb.progra3.grupo2.service.ICarritoService;
-
-
+import imb.progra3.grupo2.util.APIResponse;
+import imb.progra3.grupo2.util.ResponseUtil;
 
 @RestController
 @RequestMapping("/api/v1/carrito")
 public class CarritoController {
 
-	 @Autowired
-	    private ICarritoService carritoService;
+    @Autowired
+    private ICarritoService carritoService;
 
-	    @PostMapping
-	    public Carrito createCarrito(@RequestBody Carrito carrito) {
-	        return carritoService.saveCarrito(carrito);
-	    }
+    // Crear o actualizar un carrito
+    @PostMapping
+    public ResponseEntity<APIResponse<Carrito>> createOrUpdateCarrito(@RequestBody Carrito carrito) {
+        try {
+            // Validar que el cliente no sea nulo
+            if (carrito.getCliente() == null || carrito.getCliente().getId_Cliente() == null) {
+                return ResponseUtil.badRequest("Cliente no válido");
+            }
 
-	    @GetMapping("/{id}")
-	    public Carrito getCarritoById(@PathVariable("id") Long id) {
-	        return carritoService.getCarritoById(id).orElse(null);
-	    }
+            Carrito savedCarrito = carritoService.saveCarrito(carrito);
+            return ResponseUtil.created(savedCarrito);
+        } catch (Exception e) {
+            return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "Error al crear o actualizar el carrito: " + e.getMessage());
+        }
+    }
 
-	    @GetMapping
-	    public List<Carrito> getAllCarritos() {
-	        return carritoService.getAllCarritos();
-	    }
+    // Obtener un carrito por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse<Carrito>> getCarritoById(@PathVariable Long id) {
+        Optional<Carrito> carrito = carritoService.getCarritoById(id);
+        return carrito.map(ResponseUtil::success)
+                      .orElseGet(() -> ResponseUtil.notFound("Carrito no encontrado"));
+    }
 
-	    @DeleteMapping("/{id}")
-	    public void deleteCarrito(@PathVariable("id") Long id) {
-	        carritoService.deleteCarrito(id);
-	    }
+    // Eliminar un carrito por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse<Void>> deleteCarrito(@PathVariable Long id) {
+        try {
+            carritoService.deleteCarrito(id);
+            return ResponseUtil.success("Carrito eliminado con éxito");
+        } catch (NoSuchElementException e) {
+            return ResponseUtil.notFound("Carrito no encontrado");
+        }
+    }
+
+    // Obtener todos los carritos
+    @GetMapping
+    public ResponseEntity<APIResponse<List<Carrito>>> getAllCarritos() {
+        List<Carrito> carritos = carritoService.getAllCarritos();
+        return ResponseUtil.success(carritos);
+    }
+    
+    @GetMapping("/{clienteId}/verificar-stock")
+    public ResponseEntity<APIResponse<List<Producto>>> verificarStock(@PathVariable Long clienteId) {
+        try {
+            List<Producto> productosSinStock = carritoService.verificarStock(clienteId);
+            if (productosSinStock.isEmpty()) {
+                return ResponseUtil.success("Todos los productos tienen suficiente stock.");
+            } else {
+                return ResponseUtil.success(productosSinStock);
+            }
+        } catch (NoSuchElementException e) {
+            return ResponseUtil.notFound("Carrito no encontrado para el cliente.");
+        } catch (Exception e) {
+            return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "Error al verificar stock: " + e.getMessage());
+        }
+    }
+
 }
+

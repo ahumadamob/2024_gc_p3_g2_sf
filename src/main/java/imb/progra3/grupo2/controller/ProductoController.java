@@ -1,69 +1,71 @@
 package imb.progra3.grupo2.controller;
 
-import java.util.List;
+import imb.progra3.grupo2.entity.ItemCarrito;
+import imb.progra3.grupo2.entity.Producto;
+import imb.progra3.grupo2.service.IProductoService;
+import imb.progra3.grupo2.util.APIResponse;
+import imb.progra3.grupo2.util.ResponseUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-
-import imb.progra3.grupo2.entity.Producto;
-import imb.progra3.grupo2.service.IProductoService;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/producto")
 public class ProductoController {
-	 @Autowired
-	    private IProductoService productoService;
 
-	    @GetMapping
-	    public List<Producto> getAllClientes() {
-	        return productoService.getAll();
-	    }
+    @Autowired
+    private IProductoService productoService;
 
-	    @GetMapping("/{id_Producto}")		//Obtener un Producto por ID			
-	    public ResponseEntity<Producto> getProductoById(@PathVariable("id_Producto") Long id_Producto) {
-	    	Producto producto = productoService.getById(id_Producto);
-	        if (producto != null) {
-	            return new ResponseEntity<>(producto, HttpStatus.OK);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	        }
-	    }
+    // Crear o actualizar un Producto
+    @PostMapping
+    public ResponseEntity<APIResponse<Producto>> saveProducto(@RequestBody Producto producto) {
+        if (producto.getNombre() == null || producto.getPrecio() == null) {
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST, "Nombre y precio son obligatorios.");
+        }
+        Producto savedProducto = productoService.save(producto);
+        return ResponseUtil.created(savedProducto);
+    }
 
-	    @PostMapping						//Crear un nuevo Producto          
-	    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
-	    	Producto createdProducto = productoService.save(producto);
-	        return new ResponseEntity<>(createdProducto, HttpStatus.CREATED);
-	    }
+    // Obtener un Producto por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse<Producto>> getProductoById(@PathVariable Long id) {
+        Optional<Producto> optionalProducto = productoService.getById(id);
+        if (optionalProducto.isPresent()) {
+            return ResponseUtil.success(optionalProducto.get());
+        } else {
+            return ResponseUtil.notFound("Producto no encontrado con el ID: " + id);
+        }
+    }
 
-	    @PutMapping("/{id_Producto}")		//Actualizar un Producto existente	
-	    public ResponseEntity<Producto> updateProductoe(@PathVariable("id_Producto") Long id_Producto, @RequestBody Producto producto) {
-	        if (productoService.exists(id_Producto)) {
-	        	producto.setId_producto(id_Producto);
-	        	Producto updatedProducto = productoService.save(producto);
-	            return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	        }
-	    }
+    // Obtener todos los Productos
+    @GetMapping
+    public ResponseEntity<APIResponse<List<Producto>>> getAllProductos() {
+        List<Producto> productos = productoService.getAll();
+        return ResponseUtil.success(productos);
+    }
 
-	    @DeleteMapping("/{id_Cliente}")		//Eliminar un Producto por ID			
-	    public ResponseEntity<Void> deleteProducto(@PathVariable("id_Producto") Long id_Producto) {
-	        if (productoService.exists(id_Producto)) {
-	        	productoService.delete(id_Producto);
-	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	        }
-	    }
+    // Eliminar un Producto por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse<Void>> deleteProducto(@PathVariable Long id) {
+        if (productoService.exists(id)) {
+            productoService.delete(id);
+            return ResponseUtil.success("Producto eliminado con éxito.");
+        } else {
+            return ResponseUtil.notFound("Producto no encontrado con el ID: " + id);
+        }
+    }
 
+    // Verificar stock de productos en una lista de items del carrito
+    @PostMapping("/verificar-stock")
+    public ResponseEntity<APIResponse<List<Producto>>> verificarStock(@RequestBody List<ItemCarrito> items) {
+        List<Producto> productosSinStock = productoService.verificarStock(items);
+        return ResponseUtil.success(productosSinStock);
+    }
 }
+

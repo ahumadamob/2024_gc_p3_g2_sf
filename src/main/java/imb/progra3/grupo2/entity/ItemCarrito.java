@@ -4,53 +4,61 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class ItemCarrito {
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long idItemCarrito;
 
-	    private Integer cantidad;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	    private Long idProducto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrito_id")
+    private Carrito carrito;
 
-	    @ManyToOne
-	    @JoinColumn(name = "carrito_id") // Nombre de la columna en ItemCarrito
-	    private Carrito carrito;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
-	    // Getters y Setters
-	    public Long getIdItemCarrito() {
-	        return idItemCarrito;
-	    }
+    private Integer cantidad;
 
-	    public void setIdItemCarrito(Long idItemCarrito) {
-	        this.idItemCarrito = idItemCarrito;
-	    }
+    // Getters y Setters
 
-	    public Integer getCantidad() {
-	        return cantidad;
-	    }
+    public Long getId() {
+        return id;
+    }
 
-	    public void setCantidad(Integer cantidad) {
-	        this.cantidad = cantidad;
-	    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	    public Long getIdProducto() {
-	        return idProducto;
-	    }
+    public Carrito getCarrito() {
+        return carrito;
+    }
 
-	    public void setIdProducto(Long idProducto) {
-	        this.idProducto = idProducto;
-	    }
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
 
-	    public Carrito getCarrito() {
-	        return carrito;
-	    }
+    public Producto getProducto() {
+        return producto;
+    }
 
-	    public void setCarrito(Carrito carrito) {
-	        this.carrito = carrito;
-	    }
-	}
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        if (cantidad < 0) {
+            throw new IllegalArgumentException("La cantidad no puede ser negativa.");
+        }
+        this.cantidad = cantidad;
+    }
+}
