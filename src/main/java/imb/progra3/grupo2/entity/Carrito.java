@@ -13,7 +13,8 @@ public class Carrito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Carrito;
     private double precio;
-
+    private boolean enabled;
+    
     @ManyToOne
     @JoinColumn(name = "id_Cliente")
     private Cliente cliente;
@@ -21,6 +22,7 @@ public class Carrito {
     @ManyToOne
     @JoinColumn(name = "id_Producto")
     private Producto producto;
+    
 
     @ManyToOne
     @JoinColumn(name = "id_Venta")
@@ -78,6 +80,16 @@ public class Carrito {
     public void setVentas(Ventas ventas) {
         this.ventas = ventas;
     }
+    
+    
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+    
 
     // Método toString para representación de cadena
     @Override
@@ -89,5 +101,8 @@ public class Carrito {
                 ", producto=" + producto +
                 ", ventas=" + ventas +
                 '}';
-    }
+   
+}
+
+	
 }
