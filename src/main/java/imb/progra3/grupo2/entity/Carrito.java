@@ -26,6 +26,9 @@ public class Carrito {
     @JoinColumn(name = "id_Venta")
     private Ventas ventas;
 
+    // Cambié la relación ManyToOne a un atributo booleano
+    private boolean enabled;
+
     // Constructor vacío requerido por JPA
     public Carrito() {
     }
@@ -36,6 +39,7 @@ public class Carrito {
         this.cliente = cliente;
         this.producto = producto;
         this.ventas = ventas;
+        this.enabled = true; // Inicializa como true o false según tu lógica
     }
 
     // Getters y setters
@@ -79,6 +83,14 @@ public class Carrito {
         this.ventas = ventas;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     // Método toString para representación de cadena
     @Override
     public String toString() {
@@ -88,6 +100,8 @@ public class Carrito {
                 ", cliente=" + cliente +
                 ", producto=" + producto +
                 ", ventas=" + ventas +
+                ", enabled=" + enabled +
                 '}';
     }
 }
+
