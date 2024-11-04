@@ -10,21 +10,18 @@ public class Producto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Long id_producto;
-	
 	private String nombre;
 	private String precio;
 	private String descripcion;
 	private boolean disponible;
 	
+	
 	//Getters y Setters
-	public Long getId() {
+	public Long getId_producto() {
 		return id_producto;
 	}
-	public Long getId_Producto() {
-		return id_producto;
-	}
-	public void setId_Producto(Long id_Producto) {
-		this.id_producto= id_Producto;
+	public void setId_producto(Long id_producto) {
+		this.id_producto = id_producto;
 	}
 	public String getNombre() {
 		return nombre;
@@ -44,13 +41,12 @@ public class Producto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 	public boolean isDisponible() {
 		return disponible;
 	}
-
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
+	
 	
 }
