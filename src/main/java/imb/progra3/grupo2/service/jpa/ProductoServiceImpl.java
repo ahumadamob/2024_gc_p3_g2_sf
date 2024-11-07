@@ -43,19 +43,38 @@ public class ProductoServiceImpl implements IProductoService {
         return productoRepository.existsById(id_Producto);
     }
 
+    
     @Override
     public List<Producto> verificarStock(List<ItemCarrito> items) {
         List<Producto> productosConStock = new ArrayList<>();
+
         for (ItemCarrito item : items) {
-            Optional<Producto> productoOpt = getById(item.getProducto().getId_producto());
-            if (productoOpt.isPresent()) {
-                Producto producto = productoOpt.get();
-                // Verifica que el stock sea suficiente
-                if (producto.getStock() >= item.getCantidad()) {
-                    productosConStock.add(producto);
+            // Verifica que el item tenga un producto asociado
+            if (item.getProducto() != null) {
+                // Obtén el ID del producto desde el item
+                Long productoId = item.getProducto().getId(); // Asegúrate de que getId() esté correctamente implementado
+
+                // Busca el producto por ID usando productoRepository
+                Optional<Producto> productoOpt = productoRepository.findById(productoId);
+                if (productoOpt.isPresent()) {
+                    Producto productoConStock = productoOpt.get();
+
+                    // Verifica que el stock sea suficiente
+                    if (productoConStock.getStock() >= item.getCantidad()) {
+                        productosConStock.add(productoConStock);
+                    }
+                } else {
+                    // Aquí puedes manejar el caso donde el producto no se encuentra, si es necesario
+                    // Por ejemplo, podrías lanzar una excepción o registrar un mensaje.
                 }
+            } else {
+                // Manejo del caso donde el item no tiene un producto asociado
+                // Podrías lanzar una excepción o registrar un mensaje.
             }
         }
+
         return productosConStock;
     }
+
+
 }

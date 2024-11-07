@@ -6,10 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Producto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_producto;  // Manteniendo el nombre original
+public class Producto extends BaseEntity{
+   
     private String nombre;
     private Double precio;
     private String descripcion;
@@ -17,13 +15,7 @@ public class Producto {
     private Integer stock;
 
     // Getters y Setters
-    public Long getId_producto() {
-        return id_producto;
-    }
-
-    public void setId_producto(Long id_producto) {
-        this.id_producto = id_producto;
-    }
+   
 
     public String getNombre() {
         return nombre;

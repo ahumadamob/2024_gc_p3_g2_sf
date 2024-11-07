@@ -13,28 +13,22 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
-public class Carrito {
+public class Carrito extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   
 
+   
     @ManyToOne
-    @JoinColumn(name = "cliente_id")  // Asegúrate de que el nombre de la columna coincide con el nombre en la base de datos
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    
+    @OneToMany
     private List<ItemCarrito> items = new ArrayList<>();
 
     // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+  
 
     public Cliente getCliente() {
         return cliente;

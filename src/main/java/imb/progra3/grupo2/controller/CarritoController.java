@@ -33,9 +33,10 @@ public class CarritoController {
     public ResponseEntity<APIResponse<Carrito>> createOrUpdateCarrito(@RequestBody Carrito carrito) {
         try {
             // Validar que el cliente no sea nulo
-            if (carrito.getCliente() == null || carrito.getCliente().getId_Cliente() == null) {
-                return ResponseUtil.badRequest("Cliente no válido");
-            }
+        	if (carrito.getCliente() == null || carrito.getCliente().getId() == null) {
+        	    return ResponseUtil.badRequest("Cliente no válido");
+        	}
+
 
             Carrito savedCarrito = carritoService.saveCarrito(carrito);
             return ResponseUtil.created(savedCarrito);
@@ -73,18 +74,28 @@ public class CarritoController {
     @GetMapping("/{clienteId}/verificar-stock")
     public ResponseEntity<APIResponse<List<Producto>>> verificarStock(@PathVariable Long clienteId) {
         try {
+            // Obtiene los productos que no tienen suficiente stock
             List<Producto> productosSinStock = carritoService.verificarStock(clienteId);
+
+            // Si no hay productos sin stock, devuelve un mensaje indicando que todo está bien
             if (productosSinStock.isEmpty()) {
                 return ResponseUtil.success("Todos los productos tienen suficiente stock.");
             } else {
+                // Devuelve los productos que no tienen suficiente stock
                 return ResponseUtil.success(productosSinStock);
             }
         } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound("Carrito no encontrado para el cliente.");
+            // Si no se encuentra el carrito para el cliente, devuelve un mensaje de error
+            return ResponseUtil.notFound("Carrito no encontrado para el cliente con ID: " + clienteId);
+        } catch (IllegalStateException e) {
+            // Captura errores de negocio como falta de stock o inconsistencias
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST, "Problema con el stock: " + e.getMessage());
         } catch (Exception e) {
+            // Captura cualquier otro tipo de error inesperado
             return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "Error al verificar stock: " + e.getMessage());
         }
     }
+
 
 }
 

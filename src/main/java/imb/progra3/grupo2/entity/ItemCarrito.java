@@ -8,32 +8,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 
+
 @Entity
-public class ItemCarrito {
+public class ItemCarrito extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carrito_id")
+	@ManyToOne
     private Carrito carrito;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "producto_id")
+	@ManyToOne
     private Producto producto;
 
     private Integer cantidad;
+    
+    
 
     // Getters y Setters
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+  
 
     public Carrito getCarrito() {
         return carrito;

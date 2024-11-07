@@ -41,13 +41,15 @@ public class ClienteController {
 
     @PutMapping("/{id_Cliente}")		//Actualizar un cliente existente	//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> updateCliente(@PathVariable("id_Cliente") Long id_Cliente, @RequestBody Cliente cliente) {
-        if (clienteService.exists(id_Cliente)) {
-            cliente.setId_Cliente(id_Cliente);
-            Cliente updatedCliente = clienteService.save(cliente);
-            return new ResponseEntity<>(updatedCliente, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    	if (clienteService.exists(cliente.getId())) {  // Cambia a cliente.getId() si el método existe() usa el ID heredado
+    	    cliente.setId(id_Cliente);  // Asegúrate de que el método setId() esté en Cliente
+    	    Cliente updatedCliente = clienteService.save(cliente);
+    	    return new ResponseEntity<>(updatedCliente, HttpStatus.OK);
+    	} else {
+    	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Opcional: manejar el caso en que el cliente no exista
+    	}
+
+        
     }
 
     @DeleteMapping("/{id_Cliente}")		//Eliminar un cliente por ID			//http://localhost:8080/api/v1/cliente/1

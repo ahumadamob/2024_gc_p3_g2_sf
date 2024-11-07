@@ -39,16 +39,20 @@ public class ItemCarritoController {
             }
 
             // Validar producto
-            if (itemCarrito.getProducto() == null || !productoService.exists(itemCarrito.getProducto().getId_producto())) {
+            if (itemCarrito.getProducto() == null || !productoService.exists(itemCarrito.getProducto().getId())) {
                 return ResponseUtil.error(HttpStatus.BAD_REQUEST, "Producto no válido");
             }
+
 
             // Asignar carrito y producto al item
             itemCarrito.setCarrito(carritoService.getCarritoById(itemCarrito.getCarrito().getId()).orElseThrow(() ->
                 new NoSuchElementException("Carrito no encontrado con ID: " + itemCarrito.getCarrito().getId())));
 
-            itemCarrito.setProducto(productoService.getById(itemCarrito.getProducto().getId_producto()).orElseThrow(() ->
-                new NoSuchElementException("Producto no encontrado con ID: " + itemCarrito.getProducto().getId_producto())));
+            itemCarrito.setProducto(
+            	    productoService.getById(itemCarrito.getProducto().getId())
+            	        .orElseThrow(() -> new NoSuchElementException("Producto no encontrado con ID: " + itemCarrito.getProducto().getId()))
+            	);
+
 
             // Guardar el item en la base de datos
             ItemCarrito savedItem = itemCarritoService.saveItemCarrito(itemCarrito);
