@@ -26,6 +26,19 @@ public class Carrito extends BaseEntity{
     
     @OneToMany
     private List<ItemCarrito> items = new ArrayList<>();
+    
+
+    private boolean enabled;
+
+    // Otros campos, getters y setters
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     // Getters y Setters
   
@@ -58,13 +71,7 @@ public class Carrito extends BaseEntity{
     }
     
     
-	public boolean isEnabled() {
-		return enabled;
-	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
     
 
     // Método para agregar un producto al carrito
@@ -91,4 +98,3 @@ public class Carrito extends BaseEntity{
 }
 
 	
-}

@@ -40,17 +40,7 @@ import jakarta.validation.constraints.NotBlank;
 	        return tipo;
 	    }
 
-	    
-
-		public void setId(Long id) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public String getId() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	 
 
 	}
 
