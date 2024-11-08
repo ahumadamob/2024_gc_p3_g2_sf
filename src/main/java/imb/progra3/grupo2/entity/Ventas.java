@@ -9,19 +9,17 @@ import jakarta.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
-public class Ventas {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Venta;
+public class Ventas extends BaseEntity{
+    
     private double total;
     private Date fecha;
 
+  
     @ManyToOne
-    @JoinColumn(name = "id_MedioDePago")
     private MedioDePago medioDePago;
 
+   
     @ManyToOne
-    @JoinColumn(name = "id_Cliente")
     private Cliente cliente;
 
     // Constructor vacío requerido por JPA
@@ -37,13 +35,7 @@ public class Ventas {
     }
 
     // Getters y setters
-    public Long getId_Venta() {
-        return id_Venta;
-    }
-
-    public void setId_Venta(Long id_Venta) {
-        this.id_Venta = id_Venta;
-    }
+  
 
     public double getTotal() {
         return total;
@@ -77,16 +69,5 @@ public class Ventas {
         this.cliente = cliente;
     }
 
-    // Método toString para representación de cadena
-    @Override
-    public String toString() {
-        return "Venta{" +
-                "id_Venta=" + id_Venta +
-                ", total=" + total +
-                ", fecha=" + fecha +
-                ", medioDePago=" + medioDePago +
-                ", cliente=" + cliente +
-                '}';
-    }
 }
 
