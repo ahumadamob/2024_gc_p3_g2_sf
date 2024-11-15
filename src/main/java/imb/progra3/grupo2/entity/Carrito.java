@@ -9,10 +9,14 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Carrito {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Carrito;
+    private Long idCarrito;  // Nombre modificado para respetar la convención camelCase
+
     private double precio;
+
+    private boolean enabled;  // Campo añadido para filtrar carritos habilitados o deshabilitados
 
     @ManyToOne
     @JoinColumn(name = "id_Cliente")
@@ -31,20 +35,21 @@ public class Carrito {
     }
 
     // Constructor con parámetros
-    public Carrito(double precio, Cliente cliente, Producto producto, Ventas ventas) {
+    public Carrito(double precio, boolean enabled, Cliente cliente, Producto producto, Ventas ventas) {
         this.precio = precio;
+        this.enabled = enabled;
         this.cliente = cliente;
         this.producto = producto;
         this.ventas = ventas;
     }
 
     // Getters y setters
-    public Long getId_Carrito() {
-        return id_Carrito;
+    public Long getIdCarrito() {
+        return idCarrito;
     }
 
-    public void setId_Carrito(Long id_Carrito) {
-        this.id_Carrito = id_Carrito;
+    public void setIdCarrito(Long idCarrito) {
+        this.idCarrito = idCarrito;
     }
 
     public double getPrecio() {
@@ -53,6 +58,14 @@ public class Carrito {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Cliente getCliente() {
@@ -83,11 +96,13 @@ public class Carrito {
     @Override
     public String toString() {
         return "Carrito{" +
-                "id_Carrito=" + id_Carrito +
+                "idCarrito=" + idCarrito +
                 ", precio=" + precio +
+                ", enabled=" + enabled +
                 ", cliente=" + cliente +
                 ", producto=" + producto +
                 ", ventas=" + ventas +
                 '}';
     }
 }
+

@@ -1,26 +1,23 @@
 package imb.progra3.grupo2.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Pago;
-    private double monto;
-    private Date fecha;
+    private Long idPago;
 
-    @ManyToOne
+    private double monto;
+
+    private LocalDate fecha;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_Venta")
     private Ventas venta;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_MedioDePago")
     private MediodePago medioDePago;
 
@@ -29,20 +26,20 @@ public class Pago {
     }
 
     // Constructor con parámetros
-    public Pago(double monto, Date fecha, Ventas venta, MediodePago medioDePago) {
+    public Pago(double monto, LocalDate fecha, Ventas venta, MediodePago medioDePago) {
         this.monto = monto;
         this.fecha = fecha;
         this.venta = venta;
         this.medioDePago = medioDePago;
     }
 
-    // Getters y setters
-    public Long getId_Pago() {
-        return id_Pago;
+    // Getters y Setters
+    public Long getIdPago() {
+        return idPago;
     }
 
-    public void setId_Pago(Long id_Pago) {
-        this.id_Pago = id_Pago;
+    public void setIdPago(Long idPago) {
+        this.idPago = idPago;
     }
 
     public double getMonto() {
@@ -53,11 +50,11 @@ public class Pago {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -76,17 +73,4 @@ public class Pago {
     public void setMedioDePago(MediodePago medioDePago) {
         this.medioDePago = medioDePago;
     }
-
-    // Método toString para representación de cadena
-    @Override
-    public String toString() {
-        return "Pago{" +
-                "id_Pago=" + id_Pago +
-                ", monto=" + monto +
-                ", fecha=" + fecha +
-                ", venta=" + venta +
-                ", medioDePago=" + medioDePago +
-                '}';
-    }
 }
-
