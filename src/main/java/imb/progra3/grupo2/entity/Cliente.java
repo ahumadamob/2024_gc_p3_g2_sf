@@ -75,6 +75,8 @@ package imb.progra3.grupo2.entity;
 		public void setCodigoPostal(Integer codigoPostal) {
 			this.codigoPostal = codigoPostal;
 		}
+
+		
 	    
 		public boolean isEnabled() {
 	        return enabled;

@@ -10,11 +10,9 @@ import java.util.Date;
 
 @Entity
 public class Ventas {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idVenta;  // Ajustado a camelCase
-
+    private Long id_Venta;
     private double total;
     private Date fecha;  // Fecha de la venta
 
@@ -114,3 +112,4 @@ public class Ventas {
                 '}';
     }
 }
+

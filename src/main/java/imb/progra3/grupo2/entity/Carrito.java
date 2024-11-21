@@ -9,11 +9,9 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Carrito {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCarrito;  // Nombre modificado para respetar la convención camelCase
-
+    private Long id_Carrito;
     private double precio;
 
     private boolean enabled;  // Campo añadido para filtrar carritos habilitados o deshabilitados
@@ -44,12 +42,12 @@ public class Carrito {
     }
 
     // Getters y setters
-    public Long getIdCarrito() {
-        return idCarrito;
+    public Long getId_Carrito() {
+        return id_Carrito;
     }
 
-    public void setIdCarrito(Long idCarrito) {
-        this.idCarrito = idCarrito;
+    public void setId_Carrito(Long id_Carrito) {
+        this.id_Carrito = id_Carrito;
     }
 
     public double getPrecio() {
@@ -96,7 +94,7 @@ public class Carrito {
     @Override
     public String toString() {
         return "Carrito{" +
-                "idCarrito=" + idCarrito +
+                "id_Carrito=" + id_Carrito +
                 ", precio=" + precio +
                 ", enabled=" + enabled +
                 ", cliente=" + cliente +
@@ -105,4 +103,3 @@ public class Carrito {
                 '}';
     }
 }
-

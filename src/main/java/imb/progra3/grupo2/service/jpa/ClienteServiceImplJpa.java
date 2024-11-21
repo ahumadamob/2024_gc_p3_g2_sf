@@ -1,4 +1,3 @@
-package imb.progra3.grupo2.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
