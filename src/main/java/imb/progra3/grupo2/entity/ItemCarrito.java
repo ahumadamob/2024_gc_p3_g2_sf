@@ -1,19 +1,14 @@
 package imb.progra3.grupo2.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
 
 
 @Entity
 public class ItemCarrito extends BaseEntity{
 
    
-
+	//TODO: Crear validaciones acordes para estas propiedades
 	@ManyToOne
     private Carrito carrito;
 
@@ -22,11 +17,6 @@ public class ItemCarrito extends BaseEntity{
 
     private Integer cantidad;
     
-    
-
-    // Getters y Setters
-
-  
 
     public Carrito getCarrito() {
         return carrito;

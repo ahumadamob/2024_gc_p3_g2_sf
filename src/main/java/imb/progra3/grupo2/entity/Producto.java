@@ -1,28 +1,18 @@
 package imb.progra3.grupo2.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
-public class Producto {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
-	private Long id_producto;
+public class Producto extends BaseEntity {
+
+	//TODO: Agregar validaciones acordes
 	private String nombre;
 	private String precio;
 	private String descripcion;
 	private boolean disponible;
+	private String categoria;
 	
 	
-	//Getters y Setters
-	public Long getId_producto() {
-		return id_producto;
-	}
-	public void setId_producto(Long id_producto) {
-		this.id_producto = id_producto;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -47,6 +37,13 @@ public class Producto {
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
 	
 	
 }

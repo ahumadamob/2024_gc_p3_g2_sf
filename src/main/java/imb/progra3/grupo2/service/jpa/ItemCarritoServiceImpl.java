@@ -19,10 +19,13 @@ public class ItemCarritoServiceImpl implements IItemCarritoService {
     @Override
     public ItemCarrito saveItemCarrito(ItemCarrito itemCarrito) {
     	// Asegúrate de que el Producto relacionado esté guardado antes de guardar el ItemCarrito
+    	/*
     	if (itemCarrito.getProducto() == null || itemCarrito.getProducto().getId() == null) {
     	    throw new IllegalArgumentException("El Producto debe estar guardado antes de crear un ItemCarrito.");
     	}
     	return itemCarritoRepository.save(itemCarrito);
+    	*/
+    	return null;
 
     }
 
