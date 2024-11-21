@@ -17,16 +17,14 @@ package imb.progra3.grupo2.entity;
 	    private String domicilio;
 	    private Integer codigoPostal;
 
-	    private boolean enabled;  // Agregar esta propiedad
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
 
-	    // Getters y setters
-	    public Long getId_Cliente() {
-	        return id_Cliente;
-	    }
+    @Column(name = "email", nullable = false, unique = true)  // Marca el email como único
+    private String email;
 
-	    public void setId_Cliente(Long id_Cliente) {
-	        this.id_Cliente = id_Cliente;
-	    }
+    @Column(name = "telefono")
+    private String telefono;
 
 	    public String getNombre() {
 	        return nombre;
@@ -78,16 +76,9 @@ package imb.progra3.grupo2.entity;
 
 		
 	    
-		public boolean isEnabled() {
-	        return enabled;
-	    }
+	    
+	    
 
-	    public void setEnabled(boolean enabled) {
-	        
-	    
-	this.enabled = enabled;
-	    
-	    }
 	    
 	}
 

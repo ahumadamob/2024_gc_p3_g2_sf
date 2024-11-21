@@ -8,11 +8,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.util.Date;
 
-@Entity
-public class Pago {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Pago;
+
+public class Pago extends BaseEntity{
+   
     private double monto;
     private Date fecha;
 
@@ -24,14 +22,14 @@ public class Pago {
 
     @ManyToOne
     @JoinColumn(name = "id_MedioDePago")
-    private MediodePago medioDePago;
+    private MedioDePago medioDePago;
 
     // Constructor vacío requerido por JPA
     public Pago() {
     }
 
     // Constructor con parámetros
-    public Pago(double monto, LocalDate fecha, Ventas venta, MediodePago medioDePago) {
+    public Pago(double monto, Date fecha, Ventas venta, MedioDePago medioDePago) {
         this.monto = monto;
         this.fecha = fecha;
         this.venta = venta;
@@ -55,11 +53,11 @@ public class Pago {
         this.monto = monto;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -71,11 +69,11 @@ public class Pago {
         this.venta = venta;
     }
 
-    public MediodePago getMedioDePago() {
+    public MedioDePago getMedioDePago() {
         return medioDePago;
     }
 
-    public void setMedioDePago(MediodePago medioDePago) {
+    public void setMedioDePago(MedioDePago medioDePago) {
         this.medioDePago = medioDePago;
     }
 

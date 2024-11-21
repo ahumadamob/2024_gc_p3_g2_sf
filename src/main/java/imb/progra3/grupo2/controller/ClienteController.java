@@ -6,10 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import imb.progra3.grupo2.entity.Carrito;
 import imb.progra3.grupo2.entity.Cliente;
+import imb.progra3.grupo2.entity.ItemCarrito;
+import imb.progra3.grupo2.entity.Producto;
+import imb.progra3.grupo2.service.ICarritoService;
 import imb.progra3.grupo2.service.IClienteService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/cliente")				//Obtener todos los clientes		// http://localhost:8080/api/v1/cliente
@@ -17,6 +22,8 @@ import java.util.List;
 
         @Autowired
         private IClienteService clienteService;
+        @Autowired
+        private ICarritoService carritoService;  // Inyección del servicio CarritoService
 
         @GetMapping
         public ResponseEntity<List<Cliente>> getAllClientes() {
@@ -70,13 +77,15 @@ import java.util.List;
      
     @PutMapping("/{id_Cliente}")		//Actualizar un cliente existente	//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> updateCliente(@PathVariable("id_Cliente") Long id_Cliente, @RequestBody Cliente cliente) {
-        if (clienteService.exists(id_Cliente)) {
-            cliente.setId_Cliente(id_Cliente);
-            Cliente updatedCliente = clienteService.save(cliente);
-            return new ResponseEntity<>(updatedCliente, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    	if (clienteService.exists(cliente.getId())) {  // Cambia a cliente.getId() si el método existe() usa el ID heredado
+    	    cliente.setId(id_Cliente);  // Asegúrate de que el método setId() esté en Cliente
+    	    Cliente updatedCliente = clienteService.save(cliente);
+    	    return new ResponseEntity<>(updatedCliente, HttpStatus.OK);
+    	} else {
+    	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Opcional: manejar el caso en que el cliente no exista
+    	}
+
+        
     }
 
     @DeleteMapping("/{id_Cliente}")		//Eliminar un cliente por ID			//http://localhost:8080/api/v1/cliente/1
@@ -88,4 +97,42 @@ import java.util.List;
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    @GetMapping("/{clienteId}/total")
+    public ResponseEntity<?> calcularTotalCarrito(@PathVariable Long clienteId) {
+        try {
+            // Obtener carrito del cliente
+            Carrito carrito = carritoService.getByClienteId(clienteId);
+            
+            // Verificar si el carrito existe
+            if (carrito == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No se encontró un carrito para el cliente con ID: " + clienteId);
+            }
+
+            // Lógica para calcular el total con descuentos (puedes agregar la lógica aquí)
+            double total = calcularTotalConDescuentos(carrito); // Método para calcular el total
+            return ResponseEntity.ok(total);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Hubo un error al calcular el total del carrito.");
+        }
+    }
+
+    // Método para calcular el total con descuentos (ejemplo básico de cálculo de total)
+    private double calcularTotalConDescuentos(Carrito carrito) {
+        double total = 0.0;
+
+        // Recorre los items del carrito y calcula el total
+        for (ItemCarrito item : carrito.getItems()) {
+            double precioProducto = item.getProducto().getPrecio(); // Obtener precio del producto
+            total += precioProducto * item.getCantidad(); // Multiplicar por la cantidad
+        }
+
+        // Aquí puedes agregar lógica para aplicar descuentos si es necesario
+
+        return total;
+    }
+
 }
