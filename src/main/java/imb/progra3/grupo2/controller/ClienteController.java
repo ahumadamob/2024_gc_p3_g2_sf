@@ -1,4 +1,3 @@
-package imb.progra3.grupo2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -65,6 +64,17 @@ import java.util.Map;
         }
     }
     
+	@GetMapping(path="disabledcliente")					// http://localhost:8080/api/v1/disabledcliente
+	public List<Cliente> showDisabledCliente(){
+		return clienteService.getAllDisabled();
+	}
+	
+	@GetMapping(path="enabledcliente")					// http://localhost:8080/api/v1/enabledcliente
+	public List<Cliente> showEnabledCliente(){
+		return clienteService.getAllEnabled();
+	}
+    
+     
     @PutMapping("/{id_Cliente}")		//Actualizar un cliente existente	//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> updateCliente(@PathVariable("id_Cliente") Long id_Cliente, @RequestBody Cliente cliente) {
     	if (clienteService.exists(cliente.getId())) {  // Cambia a cliente.getId() si el método existe() usa el ID heredado

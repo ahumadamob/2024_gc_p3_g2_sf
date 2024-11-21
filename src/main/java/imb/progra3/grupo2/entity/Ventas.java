@@ -12,14 +12,17 @@ import java.util.Date;
 public class Ventas extends BaseEntity{
     
     private double total;
-    private Date fecha;
+    private Date fecha;  // Fecha de la venta
 
-  
-    @ManyToOne
-    private MedioDePago medioDePago;
+    private Date dueDate;  // Nueva propiedad: Fecha de vencimiento de la venta
+    private boolean done;  // Nueva propiedad: Indicador de si la venta está completada
 
-   
     @ManyToOne
+    @JoinColumn(name = "id_MediodePago")
+    private MediodePago mediodePago;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Cliente")
     private Cliente cliente;
 
     // Constructor vacío requerido por JPA
@@ -35,7 +38,13 @@ public class Ventas extends BaseEntity{
     }
 
     // Getters y setters
-  
+    public Long getId_Venta() {
+        return id_Venta;
+    }
+
+    public void setId_Venta(Long id_Venta) {
+        this.id_Venta = id_Venta;
+    }
 
     public double getTotal() {
         return total;
@@ -69,5 +78,16 @@ public class Ventas extends BaseEntity{
         this.cliente = cliente;
     }
 
+    // Método toString para representación de cadena
+    @Override
+    public String toString() {
+        return "Venta{" +
+                "id_Venta=" + id_Venta +
+                ", total=" + total +
+                ", fecha=" + fecha +
+                ", medioDePago=" + medioDePago +
+                ", cliente=" + cliente +
+                '}';
+    }
 }
 

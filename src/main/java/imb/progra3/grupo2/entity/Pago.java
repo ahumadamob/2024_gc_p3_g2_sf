@@ -14,12 +14,14 @@ public class Pago extends BaseEntity{
     private double monto;
     private Date fecha;
 
-   
-  
+    private LocalDate fecha;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Venta")
     private Ventas venta;
 
-   
-   
+    @ManyToOne
+    @JoinColumn(name = "id_MedioDePago")
     private MedioDePago medioDePago;
 
     // Constructor vacío requerido por JPA
@@ -35,7 +37,13 @@ public class Pago extends BaseEntity{
     }
 
     // Getters y setters
-  
+    public Long getId_Pago() {
+        return id_Pago;
+    }
+
+    public void setId_Pago(Long id_Pago) {
+        this.id_Pago = id_Pago;
+    }
 
     public double getMonto() {
         return monto;
@@ -69,6 +77,16 @@ public class Pago extends BaseEntity{
         this.medioDePago = medioDePago;
     }
 
-    
+    // Método toString para representación de cadena
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "id_Pago=" + id_Pago +
+                ", monto=" + monto +
+                ", fecha=" + fecha +
+                ", venta=" + venta +
+                ", medioDePago=" + medioDePago +
+                '}';
+    }
 }
 

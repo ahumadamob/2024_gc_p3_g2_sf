@@ -1,17 +1,21 @@
 package imb.progra3.grupo2.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+	import jakarta.persistence.Entity;
+	import jakarta.persistence.GeneratedValue;
+	import jakarta.persistence.GenerationType;
+	import jakarta.persistence.Id;
 
-@Entity
-public class Cliente  {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Entity
+	public class Cliente {
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id_Cliente;
+	    private String nombre;
+	    private String apellido;
+	    private String telefono;
+	    private String email;
+	    private String domicilio;
+	    private Integer codigoPostal;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -22,46 +26,60 @@ public class Cliente  {
     @Column(name = "telefono")
     private String telefono;
 
-    // Constructor sin parámetros requerido por JPA
-    public Cliente() {
-    }
+	    public String getNombre() {
+	        return nombre;
+	    }
 
+	    public void setNombre(String nombre) {
+	        this.nombre = nombre;
+	    }
 
-    // Getters y Setters
-    public String getNombre() {
-        return nombre;
-    }
+	    public String getApellido() {
+	        return apellido;
+	    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	    public void setApellido(String apellido) {
+	        this.apellido = apellido;
+	    }
 
-    public String getEmail() {
-        return email;
-    }
+	    public String getTelefono() {
+	        return telefono;
+	    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	    public void setTelefono(String telefono) {
+	        this.telefono = telefono;
+	    }
 
-    public String getTelefono() {
-        return telefono;
-    }
+	    public String getEmail() {
+	        return email;
+	    }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	    public void setEmail(String email) {
+	        this.email = email;
+	    }
 
+		public String getDomicilio() {
+			return domicilio;
+		}
 
-	public Long getId() {
-		return id;
+		public void setDomicilio(String domicilio) {
+			this.domicilio = domicilio;
+		}
+
+		public Integer getCodigoPostal() {
+			return codigoPostal;
+		}
+
+		public void setCodigoPostal(Integer codigoPostal) {
+			this.codigoPostal = codigoPostal;
+		}
+
+		
+	    
+	    
+	    
+
+	    
 	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-    
-}
 
 
