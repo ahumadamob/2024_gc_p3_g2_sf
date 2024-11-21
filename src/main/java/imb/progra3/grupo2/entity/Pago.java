@@ -1,19 +1,16 @@
 package imb.progra3.grupo2.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.util.Date;
 
-
+@Entity
 public class Pago extends BaseEntity{
    
     private double monto;
-    private Date fecha;
-
     private LocalDate fecha;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -24,69 +21,38 @@ public class Pago extends BaseEntity{
     @JoinColumn(name = "id_MedioDePago")
     private MedioDePago medioDePago;
 
-    // Constructor vacío requerido por JPA
-    public Pago() {
-    }
+	public double getMonto() {
+		return monto;
+	}
 
-    // Constructor con parámetros
-    public Pago(double monto, Date fecha, Ventas venta, MedioDePago medioDePago) {
-        this.monto = monto;
-        this.fecha = fecha;
-        this.venta = venta;
-        this.medioDePago = medioDePago;
-    }
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
 
-    // Getters y setters
-    public Long getId_Pago() {
-        return id_Pago;
-    }
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-    public void setId_Pago(Long id_Pago) {
-        this.id_Pago = id_Pago;
-    }
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
-    public double getMonto() {
-        return monto;
-    }
+	public Ventas getVenta() {
+		return venta;
+	}
 
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
+	public void setVenta(Ventas venta) {
+		this.venta = venta;
+	}
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public MedioDePago getMedioDePago() {
+		return medioDePago;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public void setMedioDePago(MedioDePago medioDePago) {
+		this.medioDePago = medioDePago;
+	}
 
-    public Ventas getVenta() {
-        return venta;
-    }
-
-    public void setVenta(Ventas venta) {
-        this.venta = venta;
-    }
-
-    public MedioDePago getMedioDePago() {
-        return medioDePago;
-    }
-
-    public void setMedioDePago(MedioDePago medioDePago) {
-        this.medioDePago = medioDePago;
-    }
-
-    // Método toString para representación de cadena
-    @Override
-    public String toString() {
-        return "Pago{" +
-                "id_Pago=" + id_Pago +
-                ", monto=" + monto +
-                ", fecha=" + fecha +
-                ", venta=" + venta +
-                ", medioDePago=" + medioDePago +
-                '}';
-    }
+   
 }
 

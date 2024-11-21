@@ -1,4 +1,4 @@
-
+package imb.progra3.grupo2.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -77,6 +77,7 @@ import java.util.Map;
      
     @PutMapping("/{id_Cliente}")		//Actualizar un cliente existente	//http://localhost:8080/api/v1/cliente/25
     public ResponseEntity<Cliente> updateCliente(@PathVariable("id_Cliente") Long id_Cliente, @RequestBody Cliente cliente) {
+    	
     	if (clienteService.exists(cliente.getId())) {  // Cambia a cliente.getId() si el método existe() usa el ID heredado
     	    cliente.setId(id_Cliente);  // Asegúrate de que el método setId() esté en Cliente
     	    Cliente updatedCliente = clienteService.save(cliente);
@@ -90,8 +91,9 @@ import java.util.Map;
 
     @DeleteMapping("/{id_Cliente}")		//Eliminar un cliente por ID			//http://localhost:8080/api/v1/cliente/1
     public ResponseEntity<Void> deleteCliente(@PathVariable("id_Cliente") Long id_Cliente) {
-        if (clienteService.exists(id_Cliente)) {
-            clienteService.delete(id_Cliente);
+        
+    	if (clienteService.exists(id_Cliente)) {
+            clienteService.deleteById(id_Cliente);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -125,10 +127,11 @@ import java.util.Map;
         double total = 0.0;
 
         // Recorre los items del carrito y calcula el total
+        /*
         for (ItemCarrito item : carrito.getItems()) {
             double precioProducto = item.getProducto().getPrecio(); // Obtener precio del producto
             total += precioProducto * item.getCantidad(); // Multiplicar por la cantidad
-        }
+        }*/
 
         // Aquí puedes agregar lógica para aplicar descuentos si es necesario
 

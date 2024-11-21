@@ -52,11 +52,12 @@ public class ProductoServiceImpl implements IProductoService {
             // Verifica que el item tenga un producto asociado
             if (item.getProducto() != null) {
                 // Obtén el ID del producto desde el item
-                Long productoId = item.getProducto().getId(); // Asegúrate de que getId() esté correctamente implementado
+                //Long productoId = item.getProducto().getId(); // Asegúrate de que getId() esté correctamente implementado
 
                 // Busca el producto por ID usando productoRepository
-                Optional<Producto> productoOpt = productoRepository.findById(productoId);
-                if (productoOpt.isPresent()) {
+                //Optional<Producto> productoOpt = productoRepository.findById(productoId);
+                
+            	/*if (productoOpt.isPresent()) {
                     Producto productoConStock = productoOpt.get();
 
                     // Verifica que el stock sea suficiente
@@ -66,7 +67,7 @@ public class ProductoServiceImpl implements IProductoService {
                 } else {
                     // Aquí puedes manejar el caso donde el producto no se encuentra, si es necesario
                     // Por ejemplo, podrías lanzar una excepción o registrar un mensaje.
-                }
+                }*/
             } else {
                 // Manejo del caso donde el item no tiene un producto asociado
                 // Podrías lanzar una excepción o registrar un mensaje.

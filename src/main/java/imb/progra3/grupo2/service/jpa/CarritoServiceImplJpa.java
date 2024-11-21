@@ -62,8 +62,11 @@ public class CarritoServiceImplJpa implements ICarritoService {
     
     @Override
     public Carrito getByClienteId(Long clienteId) {
-        return carritoRepository.findByClienteId(clienteId)
+        /*
+    	return carritoRepository.findByClienteId(clienteId)
                 .orElse(null); // Asegúrate de que `findByClienteId` esté implementado en el repositorio
+    */
+    	return null;
     }
 
   

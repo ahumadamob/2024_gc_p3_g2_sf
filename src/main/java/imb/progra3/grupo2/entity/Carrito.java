@@ -1,89 +1,47 @@
 package imb.progra3.grupo2.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Carrito extends BaseEntity{
-
-   
-
    
     @ManyToOne
-    @JoinColumn(name = "id_Cliente")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_Producto")
-    private Producto producto;
-    
+    //TODO: Producto ya se repite en el item y no debería estar aquí
+    private Producto producto;    
 
     @ManyToOne
-    @JoinColumn(name = "id_Venta")
     private Ventas ventas;
 
-    // Cambié la relación ManyToOne a un atributo booleano
     private boolean enabled;
 
-    // Constructor vacío requerido por JPA
-    public Carrito() {
-    }
+	public Cliente getCliente() {
+		return cliente;
+	}
 
-    // Constructor con parámetros
-    public Carrito(double precio, Cliente cliente, Producto producto, Ventas ventas) {
-        this.precio = precio;
-        this.cliente = cliente;
-        this.producto = producto;
-        this.ventas = ventas;
-        this.enabled = true; // Inicializa como true o false según tu lógica
-    }
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
-    // Getters y setters
-    public Long getId_Carrito() {
-        return id_Carrito;
-    }
+	public Producto getProducto() {
+		return producto;
+	}
 
-    public void setId_Carrito(Long id_Carrito) {
-        this.id_Carrito = id_Carrito;
-    }
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
 
-    public double getPrecio() {
-        return precio;
-    }
+	public Ventas getVentas() {
+		return ventas;
+	}
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
+	public void setVentas(Ventas ventas) {
+		this.ventas = ventas;
+	}
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public Ventas getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(Ventas ventas) {
-        this.ventas = ventas;
-    }
-    
-    
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -91,28 +49,7 @@ public class Carrito extends BaseEntity{
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-    
 
-    public boolean isEnabled() {
-        return enabled;
-    }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    // Método toString para representación de cadena
-    @Override
-    public String toString() {
-        return "Carrito{" +
-                "id_Carrito=" + id_Carrito +
-                ", precio=" + precio +
-                ", cliente=" + cliente +
-                ", producto=" + producto +
-                ", ventas=" + ventas +
-                ", enabled=" + enabled +
-                '}';
-   
-}
 }
 

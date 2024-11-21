@@ -22,10 +22,12 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     // Constructor por defecto
@@ -70,4 +72,3 @@ public abstract class BaseEntity {
         return Objects.hash(id);
     }
 }
-

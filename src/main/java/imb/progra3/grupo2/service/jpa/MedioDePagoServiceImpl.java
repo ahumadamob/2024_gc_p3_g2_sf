@@ -16,20 +16,23 @@ public class MedioDePagoServiceImpl implements IMedioDePagoService {
     @Autowired
     private MedioDePagoRepository medioDePagoRepository;
 
-    @Override
+    
+    /*
     public List<MedioDePago> getAll() {
         return medioDePagoRepository.findAll();
-    }
+    }*/
 
-    @Override
+   
+    /*
     public MedioDePago getById(Long id) {
         return medioDePagoRepository.findById(id).orElse(null);
-    }
+    }*/
 
-    @Override
+    
+    /*
     public MedioDePago save(MedioDePago medioDePago) {
         return medioDePagoRepository.save(medioDePago);
-    }
+    }*/
 
     @Override
     public void delete(Long id) {
@@ -40,9 +43,42 @@ public class MedioDePagoServiceImpl implements IMedioDePagoService {
     public boolean exists(Long id) {
         return medioDePagoRepository.existsById(id);
     }
+
+	@Override
+	public List<MedioDePago> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MedioDePago findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MedioDePago save(MedioDePago medioDePago) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
-    @Override
+    
+    /*
     public Optional<MedioDePago> MedioDePago(String nombre) {
         return medioDePagoRepository.findByNombre(nombre);
-    }
+    }*/
+
+	
+	/*
+	public List<imb.progra3.grupo2.entity.MedioDePago> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
+	
+	/*
+	public imb.progra3.grupo2.entity.MedioDePago findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 }

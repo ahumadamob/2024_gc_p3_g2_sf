@@ -26,12 +26,13 @@ public class MedioDePagoController {
 
     @GetMapping   //Crear un nuevo medio de pago           //http://localhost:8080/api/mediosdepago
     public List<MedioDePago> getAllMediosDePago() {
-        return IMedioDePagoService.getAll();
+        //return IMedioDePagoService.getAll();
+    	return null;
     }
 
     @GetMapping("/{id}")		//Obtener un cliente por ID  //http://localhost:8080/api/mediosdepago/5
     public ResponseEntity<MedioDePago> getMedioDePagoById(@PathVariable Long id) {
-        MedioDePago medioDePago = IMedioDePagoService.getById(id);
+        MedioDePago medioDePago = IMedioDePagoService.findById(id);
         if (medioDePago == null) {
             throw new ResourceNotFoundException("Medio de pago con ID " + id + " no encontrado.");
         }
