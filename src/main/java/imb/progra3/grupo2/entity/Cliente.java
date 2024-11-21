@@ -17,7 +17,7 @@ package imb.progra3.grupo2.entity;
 	    private String domicilio;
 	    private Integer codigoPostal;
 
-	   
+	    private boolean enabled;  // Agregar esta propiedad
 
 	    // Getters y setters
 	    public Long getId_Cliente() {
@@ -78,9 +78,16 @@ package imb.progra3.grupo2.entity;
 
 		
 	    
-	    
-	    
+		public boolean isEnabled() {
+	        return enabled;
+	    }
 
+	    public void setEnabled(boolean enabled) {
+	        
+	    
+	this.enabled = enabled;
+	    
+	    }
 	    
 	}
 

@@ -14,11 +14,14 @@ public class Ventas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Venta;
     private double total;
-    private Date fecha;
+    private Date fecha;  // Fecha de la venta
+
+    private Date dueDate;  // Nueva propiedad: Fecha de vencimiento de la venta
+    private boolean done;  // Nueva propiedad: Indicador de si la venta está completada
 
     @ManyToOne
-    @JoinColumn(name = "id_MedioDePago")
-    private MedioDePago medioDePago;
+    @JoinColumn(name = "id_MediodePago")
+    private MediodePago mediodePago;
 
     @ManyToOne
     @JoinColumn(name = "id_Cliente")
@@ -29,20 +32,22 @@ public class Ventas {
     }
 
     // Constructor con parámetros
-    public Ventas(double total, Date fecha, MedioDePago medioDePago, Cliente cliente) {
+    public Ventas(double total, Date fecha, Date dueDate, boolean done, MediodePago mediodePago, Cliente cliente) {
         this.total = total;
         this.fecha = fecha;
-        this.medioDePago = medioDePago;
+        this.dueDate = dueDate;
+        this.done = done;
+        this.mediodePago = mediodePago;
         this.cliente = cliente;
     }
 
     // Getters y setters
-    public Long getId_Venta() {
-        return id_Venta;
+    public Long getIdVenta() {
+        return idVenta;
     }
 
-    public void setId_Venta(Long id_Venta) {
-        this.id_Venta = id_Venta;
+    public void setIdVenta(Long idVenta) {
+        this.idVenta = idVenta;
     }
 
     public double getTotal() {
@@ -61,12 +66,28 @@ public class Ventas {
         this.fecha = fecha;
     }
 
-    public MedioDePago getMedioDePago() {
-        return medioDePago;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setMediodePago(MedioDePago medioDePago) {
-        this.medioDePago = medioDePago;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public MediodePago getMedioDePago() {
+        return mediodePago;
+    }
+
+    public void setMediodePago(MediodePago mediodePago) {
+        this.mediodePago = mediodePago;
     }
 
     public Cliente getCliente() {
@@ -80,11 +101,13 @@ public class Ventas {
     // Método toString para representación de cadena
     @Override
     public String toString() {
-        return "Venta{" +
-                "id_Venta=" + id_Venta +
+        return "Ventas{" +
+                "idVenta=" + idVenta +
                 ", total=" + total +
                 ", fecha=" + fecha +
-                ", medioDePago=" + medioDePago +
+                ", dueDate=" + dueDate +
+                ", done=" + done +
+                ", mediodePago=" + mediodePago +
                 ", cliente=" + cliente +
                 '}';
     }

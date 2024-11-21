@@ -13,8 +13,9 @@ public class Carrito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Carrito;
     private double precio;
-    private boolean enabled;
-    
+
+    private boolean enabled;  // Campo añadido para filtrar carritos habilitados o deshabilitados
+
     @ManyToOne
     @JoinColumn(name = "id_Cliente")
     private Cliente cliente;
@@ -22,26 +23,22 @@ public class Carrito {
     @ManyToOne
     @JoinColumn(name = "id_Producto")
     private Producto producto;
-    
 
     @ManyToOne
     @JoinColumn(name = "id_Venta")
     private Ventas ventas;
-
-    // Cambié la relación ManyToOne a un atributo booleano
-    private boolean enabled;
 
     // Constructor vacío requerido por JPA
     public Carrito() {
     }
 
     // Constructor con parámetros
-    public Carrito(double precio, Cliente cliente, Producto producto, Ventas ventas) {
+    public Carrito(double precio, boolean enabled, Cliente cliente, Producto producto, Ventas ventas) {
         this.precio = precio;
+        this.enabled = enabled;
         this.cliente = cliente;
         this.producto = producto;
         this.ventas = ventas;
-        this.enabled = true; // Inicializa como true o false según tu lógica
     }
 
     // Getters y setters
@@ -59,6 +56,14 @@ public class Carrito {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Cliente getCliente() {
@@ -84,24 +89,6 @@ public class Carrito {
     public void setVentas(Ventas ventas) {
         this.ventas = ventas;
     }
-    
-    
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-    
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     // Método toString para representación de cadena
     @Override
@@ -109,12 +96,10 @@ public class Carrito {
         return "Carrito{" +
                 "id_Carrito=" + id_Carrito +
                 ", precio=" + precio +
+                ", enabled=" + enabled +
                 ", cliente=" + cliente +
                 ", producto=" + producto +
                 ", ventas=" + ventas +
-                ", enabled=" + enabled +
                 '}';
-   
+    }
 }
-}
-

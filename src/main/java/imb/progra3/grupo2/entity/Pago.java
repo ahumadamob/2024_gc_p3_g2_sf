@@ -16,20 +16,22 @@ public class Pago {
     private double monto;
     private Date fecha;
 
-    @ManyToOne
+    private LocalDate fecha;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_Venta")
     private Ventas venta;
 
     @ManyToOne
     @JoinColumn(name = "id_MedioDePago")
-    private MedioDePago medioDePago;
+    private MediodePago medioDePago;
 
     // Constructor vacío requerido por JPA
     public Pago() {
     }
 
     // Constructor con parámetros
-    public Pago(double monto, Date fecha, Ventas venta, MedioDePago medioDePago) {
+    public Pago(double monto, LocalDate fecha, Ventas venta, MediodePago medioDePago) {
         this.monto = monto;
         this.fecha = fecha;
         this.venta = venta;
@@ -53,11 +55,11 @@ public class Pago {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -69,11 +71,11 @@ public class Pago {
         this.venta = venta;
     }
 
-    public MedioDePago getMedioDePago() {
+    public MediodePago getMedioDePago() {
         return medioDePago;
     }
 
-    public void setMedioDePago(MedioDePago medioDePago) {
+    public void setMedioDePago(MediodePago medioDePago) {
         this.medioDePago = medioDePago;
     }
 
