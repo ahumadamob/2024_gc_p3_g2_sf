@@ -13,7 +13,7 @@ public interface CarritoRepository extends JpaRepository<Carrito, Long> {
     List<Carrito> findByEnabledTrue();
 
     // Método para encontrar carritos deshabilitados
-    List<Carrito> findByEnabledFalse();
+      List<Carrito> findByEnabledFalse();
 
     boolean existsByVentasIdAndEnabledTrue(Long ventasId);
 

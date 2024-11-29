@@ -29,7 +29,7 @@ public interface ICarritoService {
     List<Carrito> getAllEnabled();
 
     // Obtiene todos los carritos deshabilitados
-    List<Carrito> getAllDisabled();
+      List<Carrito> getAllDisabled();
     Carrito getByClienteId(Long clienteId);
 
 	boolean existsByVentasIdAndEnabledTrue(Long id);

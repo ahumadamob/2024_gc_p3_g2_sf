@@ -18,7 +18,7 @@ public class CarritoServiceImplJpa implements ICarritoService {
 //cambios nevos
     @Override 
     public Carrito saveCarrito(Carrito carrito) {
-        if (carrito.getCliente() == null || carrito.getCliente().getId() == null) {
+         if (carrito.getCliente() == null || carrito.getCliente().getId() == null) {
             throw new IllegalArgumentException("Cliente no válido");
         }
         if (!carrito.isEnabled()) {

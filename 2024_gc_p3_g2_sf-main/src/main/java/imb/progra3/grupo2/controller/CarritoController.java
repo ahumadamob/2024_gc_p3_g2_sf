@@ -32,7 +32,7 @@ public class CarritoController {
 
     // GET: Obtener un carrito por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getCarritoById(@PathVariable Long id) {
+      public ResponseEntity<Map<String, Object>> getCarritoById(@PathVariable Long id) {
         return carritoService.getCarritoById(id)
             .map(carrito -> ResponseEntity.ok(Map.of(
                 "status", "success",

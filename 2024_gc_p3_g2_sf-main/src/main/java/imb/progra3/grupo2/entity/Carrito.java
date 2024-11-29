@@ -7,18 +7,18 @@ import jakarta.persistence.ManyToOne;
 public class Carrito extends BaseEntity{
    
     @ManyToOne
-    private Cliente cliente;
+    private Cliente  cliente;
 
     @ManyToOne
     //TODO: Producto ya se repite en el item y no debería estar aquí
-    private Producto producto;    
+    private  Producto producto;    
 
     @ManyToOne
-    private Ventas ventas;
+    private  Ventas ventas;
 
-    private boolean enabled;
+    private  boolean enabled;
 
-	public Cliente getCliente() {
+	public  Cliente getCliente() {
 		return cliente;
 	}
 
