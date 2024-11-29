@@ -14,4 +14,7 @@ public interface PagoRepository extends JpaRepository<Pago, Long> {
 
     @Query("SELECT p FROM Pago p WHERE p.venta.cliente.id = :clienteId AND p.fecha BETWEEN :fechaInicio AND :fechaFin")
     List<Pago> findByClienteIdAndFechaBetween(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin);
+    boolean existsByVentaId(Long ventaId);
+
+    boolean existsByMedioDePagoId(Long medioDePagoId);
 }

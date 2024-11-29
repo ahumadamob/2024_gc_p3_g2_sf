@@ -29,10 +29,10 @@ public class MedioDePagoServiceImpl implements IMedioDePagoService {
     }*/
 
     
-    /*
+    
     public MedioDePago save(MedioDePago medioDePago) {
         return medioDePagoRepository.save(medioDePago);
-    }*/
+    }
 
     @Override
     public void delete(Long id) {
@@ -56,11 +56,7 @@ public class MedioDePagoServiceImpl implements IMedioDePagoService {
 		return null;
 	}
 
-	@Override
-	public MedioDePago save(MedioDePago medioDePago) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
     
     
     /*

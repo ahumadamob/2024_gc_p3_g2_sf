@@ -14,8 +14,17 @@ public interface IPagoService {
     boolean exists(Long id);
     Pago save(Pago pago);
     void delete(Long id);
+    boolean existsByVentaId(Long ventaId);
+    boolean existsByMedioDePagoId(Long medioDePagoId);
 
     // Método para obtener historial de pagos de un cliente en un rango de fechas específico
     //List<Pago> findByClienteIdAndFechaBetween(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin);
 	List<Pago> findByClienteIdAndFechaBetween(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin);
 }
+
+//public interface IPagoService {
+
+
+
+
+
