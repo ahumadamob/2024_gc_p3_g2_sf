@@ -1,5 +1,7 @@
 package imb.progra3.grupo2.service.jpa;
 
+import imb.progra3.grupo2.entity.MedioDePago;
+import imb.progra3.grupo2.entity.Ventas;
 import imb.progra3.grupo2.repository.VentasRepository;
 import imb.progra3.grupo2.service.IVentasService;
 
@@ -24,4 +26,19 @@ public class VentasServiceImpl implements IVentasService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Ventas save(Ventas ventas) {
+		// TODO Auto-generated method stub
+		return ventasRepository.save(ventas);
+	}
+
+	@Override
+	public boolean exists(Long id) {
+		// TODO Auto-generated method stub
+		return ventasRepository.existsById(id);
+	}
+	
+	 
+	  
 }

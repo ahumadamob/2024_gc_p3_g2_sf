@@ -1,8 +1,16 @@
 package imb.progra3.grupo2.controller;
 
+import imb.progra3.grupo2.entity.Ventas;
 import imb.progra3.grupo2.service.IVentasService;
+import imb.progra3.grupo2.util.APIResponse;
+import imb.progra3.grupo2.util.ResponseUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ventas")
+@RequestMapping("/api/ventas")
+
 public class VentasController {
 
     @Autowired
@@ -33,6 +42,27 @@ public class VentasController {
 
         return informe;
     }
+    
+    
+    
+ // Crear o actualizar un carrito
+    @PostMapping
+    public ResponseEntity<APIResponse<Ventas>> createOrUpdateVentas(@RequestBody Ventas ventas) {
+        try {
+            // Validar que el cliente no sea nulo
+        	if (ventas.getCliente() == null || ventas.getCliente().getId() == null) {
+        	    return ResponseUtil.badRequest("Ventas no válido");
+        	}
+
+
+            Ventas savedVentas = ventasService.save(ventas);
+            return ResponseUtil.created(savedVentas);
+        } catch (Exception e) {
+            return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "Error al crear o actualizar el carrito: " + e.getMessage());
+        }
+    }
+    
+    
 }
 
 

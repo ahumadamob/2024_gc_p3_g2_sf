@@ -70,4 +70,16 @@ public class PagoServiceImplJpa implements IPagoService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean existsByVentaId(Long ventaId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean existsByMedioDePagoId(Long medioDePagoId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
