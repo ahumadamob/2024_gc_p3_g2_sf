@@ -16,4 +16,5 @@ public interface CarritoRepository extends JpaRepository<Carrito, Long> {
     List<Carrito> findByEnabledFalse();
 
     // Aquí puedes agregar otros métodos personalizados si necesitas consultas específicas
+    public boolean existsByVentasIdAndEnabledTrue(Long id); 
 }

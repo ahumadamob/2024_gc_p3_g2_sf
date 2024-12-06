@@ -32,4 +32,6 @@ public interface ICarritoService {
     List<Carrito> getAllDisabled();
     Carrito getByClienteId(Long clienteId);
     
+    public boolean carritoPorIdVentaActivo(Long ventaId);
+    
 }

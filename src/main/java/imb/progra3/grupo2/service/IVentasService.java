@@ -13,7 +13,7 @@ public interface IVentasService {
 	
 	 public Ventas save(Ventas ventas);
 	 public boolean exists(Long id);
-	 
+ 
 }
 
 

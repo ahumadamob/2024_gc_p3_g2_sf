@@ -38,7 +38,6 @@ public class VentasServiceImpl implements IVentasService {
 		// TODO Auto-generated method stub
 		return ventasRepository.existsById(id);
 	}
-	
-	 
+ 
 	  
 }

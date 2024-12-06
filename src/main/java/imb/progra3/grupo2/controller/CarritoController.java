@@ -1,5 +1,6 @@
 package imb.progra3.grupo2.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import imb.progra3.grupo2.dto.CarritoRequestDTO;
 import imb.progra3.grupo2.entity.Carrito;
 import imb.progra3.grupo2.entity.Producto;
 import imb.progra3.grupo2.service.ICarritoService;
+import imb.progra3.grupo2.service.IClienteService;
+import imb.progra3.grupo2.service.IVentasService;
 import imb.progra3.grupo2.util.APIResponse;
 import imb.progra3.grupo2.util.ResponseUtil;
 
@@ -27,6 +31,13 @@ public class CarritoController {
 
     @Autowired
     private ICarritoService carritoService;
+    
+    @Autowired
+    private IClienteService clienteService;
+    
+    @Autowired
+    private IVentasService ventaService;
+    
 
     // Crear o actualizar un carrito
     @PostMapping
@@ -94,6 +105,46 @@ public class CarritoController {
             // Captura cualquier otro tipo de error inesperado
             return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "Error al verificar stock: " + e.getMessage());
         }
+    }
+    
+    //POST /api/carritos/validar
+    @PostMapping("/validar")
+    public ResponseEntity<APIResponse<Carrito>> nuevoCarritoValida(@RequestBody CarritoRequestDTO request){
+    	//Condición 1: Verifica que el cliente asociado al carrito no sea nulo.
+    	boolean isValid = true;
+    	List<String> errors = new ArrayList<String>();
+    	
+    	if(!clienteService.exists(request.getCliente().getId())) {
+    		isValid = false;
+    		errors.add("El cliente no existe");
+    	}
+    	
+    	if(!request.isEnabled()) {
+    		isValid = false;
+    		errors.add("El carrito está desactivado");
+    	}
+    	
+
+    	if(carritoService.carritoPorIdVentaActivo(request.getVentas().getId()) == false) {
+    		isValid = false;
+    		errors.add("La venta no existe o no está activa");
+    	}
+    	
+    	if(isValid) {
+    		Carrito carritoParaGuardar = new Carrito();
+    		carritoParaGuardar.setVentas(request.getVentas());
+    		carritoParaGuardar.setProducto(request.getProducto());
+    		carritoParaGuardar.setCliente(request.getCliente());
+    		carritoParaGuardar.setEnabled(request.isEnabled());   		
+    		
+    		return ResponseUtil.created(carritoService.saveCarrito(carritoParaGuardar));
+    		
+    	}else {
+    		APIResponse<Carrito> response = new APIResponse<Carrito>(HttpStatus.BAD_REQUEST.value(), errors, null);
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);    		
+    	}
+    	
+    	
     }
 
 

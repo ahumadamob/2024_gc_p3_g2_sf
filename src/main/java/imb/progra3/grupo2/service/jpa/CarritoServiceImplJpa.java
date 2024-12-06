@@ -69,6 +69,11 @@ public class CarritoServiceImplJpa implements ICarritoService {
     	return null;
     }
 
+	@Override
+	public boolean carritoPorIdVentaActivo(Long ventaId) {
+		return (ventaId == null)? false: carritoRepository.existsByVentasIdAndEnabledTrue(ventaId);
+	}
+
   
     
 }
